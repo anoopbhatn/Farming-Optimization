@@ -1,0 +1,228 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+Farming:
+	transition: FadeTransition()
+	FirstScreen:
+	SecondScreen:
+	ThirdScreen:
+
+# First Screen of the app
+
+<FirstScreen>:
+	name: 'first'
+	BoxLayout:
+		orientation: 'vertical'
+		BoxLayout:
+			height: "80dp"
+			size_hint_y: None
+			Label:
+				text: 'Farmer\'s Helpline'
+				font_size: 20
+		Image:
+			source: 'farmer.jpg'
+			allow_stretch: True
+			keep_ratio: False
+		BoxLayout:
+			height: "80dp"
+			size_hint_y: None
+			Button:
+				text: 'Get Help'
+				font_size: 30
+				on_release: app.root.current = 'second'
+			Button:
+				text: 'Change Prices'
+				font_size: 30
+				on_release: app.root.current = 'third'
+
+# Custom White Box
+ 
+<WhiteBox>:
+	height: "80dp"
+	size_hint_y: None
+	canvas:
+		Color:
+			rgba: 1, 1, 1, 1
+		Rectangle:
+			pos: self.pos
+			size: self.size
+
+# Custom Left aligned Label with text size 20dp and colour - black
+
+<LeftLabel>:
+	texture_size: self.size
+	#size: self.texture_size
+	text_size:  self.size
+	font_size: 20
+	color: 0,0,0,1
+	halign: "left"
+	valign: "middle"
+
+# Get Help Screen
+
+<SecondScreen>:
+	name: 'second'
+	BoxLayout:
+		orientation: 'vertical'
+		WhiteBox:
+			height: "50dp"
+			LeftLabel:
+				text: 'Enter Required Details Please !!'
+				color: 1,0,0,1		
+		WhiteBox:
+			height: "50dp"
+			LeftLabel:
+				text: 'Total Fertilizers used'		
+		TextInput:
+			id: total
+			multiline: False
+			size_hint_x: 50
+			font_size: 20
+		WhiteBox:
+			height: "50dp"
+			LeftLabel:
+				text: 'Maximum amount of phosphate that can be used :'
+		TextInput:
+			id: phosphate
+			multiline: False
+			size_hint_x: 50
+			font_size: 20
+			hint_text: "in kg's"
+		WhiteBox:
+			height: "50dp"
+			LeftLabel:
+				text: 'Minimum amount of Nitrate that has to be used :'
+		TextInput:
+			id: nitrate
+			multiline: False
+			size_hint_x: 50
+			font_size: 20
+			hint_text: "in kg's"
+		WhiteBox:
+			height: "60dp"
+		WhiteBox:
+			height: "50dp"
+			LeftLabel:
+				text: root.result
+		WhiteBox:
+			height: "50dp"
+			LeftLabel:
+				text: root.result1
+		WhiteBox:
+			height: "50dp"
+			LeftLabel:
+				text: root.result2
+		BoxLayout:
+			height: "80dp"
+			size_hint_y: None
+			Button:
+				text: 'Done'
+				font_size: 30
+				on_release: root.calculate(total.text,phosphate.text,nitrate.text);
+			Button:
+				text: 'Back'
+				font_size: 30
+				on_release: app.root.current = 'first'
+
+# Change Page
+
+<ThirdScreen>:
+	name: 'third'
+
+	BoxLayout:
+		orientation: 'vertical'
+		WhiteBox:
+			height: "30dp"
+			LeftLabel:
+				text: 'Enter the changes here please !!'
+				color: 1,0,0,1		
+		WhiteBox:
+			height: "40dp"
+			LeftLabel:
+				text: root.pprice
+		WhiteBox:
+			height: "40dp"
+			LeftLabel:
+				text: root.nprice
+		WhiteBox:
+			height: "50dp"
+			LeftLabel:
+				text: 'Changed price of Fertilizer A (per kg)'		
+		TextInput:
+			id: phosprice
+			multiline: False
+			size_hint_x: 30
+			font_size: 20
+		WhiteBox:
+			height: "50dp"
+			LeftLabel:
+				text: 'Changed price of  Fertlizer B (per kg)'
+		TextInput:
+			id: nitrateprice
+			multiline: False
+			size_hint_x: 50
+			font_size: 20
+		WhiteBox:
+			height: "30dp"
+			LeftLabel:
+				text: 'Total Weights in A and B'
+		BoxLayout:
+			height: "40dp"
+			size_hint_y: None
+			TextInput:
+				id: cons1
+				multiline: False
+				size_hint_x: 50
+				font_size: 20
+			TextInput:
+				id: cons2
+				multiline: False
+				size_hint_x: 50
+				font_size: 20
+		WhiteBox:
+			height: "30dp"
+			LeftLabel:
+				text: 'Enter the amount of phosphate in A and B'
+		BoxLayout:
+			height: "40dp"
+			size_hint_y: None
+			TextInput:
+				id: cons3
+				multiline: False
+				size_hint_x: 50
+				font_size: 20
+			TextInput:
+				id: cons4
+				multiline: False
+				size_hint_x: 50
+				font_size: 20
+		WhiteBox:
+			height: "30dp"
+			LeftLabel:
+				text: 'Enter the amount of nitrate in A and B'
+		BoxLayout:
+			height: "40dp"
+			size_hint_y: None
+			TextInput:
+				id: cons5
+				multiline: False
+				size_hint_x: 50
+				font_size: 20
+			TextInput:
+				id: cons6
+				multiline: False
+				size_hint_x: 50
+				font_size: 20
+		WhiteBox:
+			height: "30dp"
+		BoxLayout:
+			height: "80dp"
+			size_hint_y: None
+			Button:
+				text: 'Done'
+				font_size: 30
+				on_release: root.change_price(phosprice.text,nitrateprice.text,cons1.text,cons2.text,cons3.text,cons4.text,cons5.text,cons6.text);
+			Button:
+				text: 'Back'
+				font_size: 30
+				on_release: app.root.current = 'first'
+
